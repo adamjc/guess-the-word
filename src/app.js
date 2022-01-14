@@ -36,6 +36,11 @@ class App extends React.Component {
     return (
       <div>
         <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 1 ? false : true}/>
+        <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 2 ? false : true}/>
+        <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 3 ? false : true}/>
+        <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 4 ? false : true}/>
+        <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 5 ? false : true}/>
+        <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 6 ? false : true}/>
         <button onClick={this.handleClick}>Go</button>
       </div>
     )
