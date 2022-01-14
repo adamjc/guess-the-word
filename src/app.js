@@ -9,7 +9,9 @@ class App extends React.Component {
     super(props)
     this.state = {
       word: pickWord(),
-      letters: [],
+      letters: {
+        1: []
+      },
       currentLine: 1
     }
 
@@ -17,16 +19,24 @@ class App extends React.Component {
   }
 
   handleCharacterChange = ({order, letters}) => {
-    console.log(this.state)
-    this.setState(letters[order] = letters)
+    this.setState(state => {
+      state.letters[order] = letters
+    })
   }
 
   handleClick = () => {
+    const currentLine = this.state.currentLine
+    console.log(this.state.letters[currentLine].length)
+    if (this.state.letters[currentLine].length !== 5) {
+      return
+    }
+
     console.log(this.state)
-    if (this.state.word === this.state.letters.join("")) {
+    
+    if (this.state.word === this.state.letters[currentLine].join("")) {
       console.log("congratulations")
     } else {
-      console.log(`you guessed ${this.state.letters.join("")}`)
+      console.log(`you guessed ${this.state.letters[currentLine].join("")}`)
     }
 
     this.setState(state => ({currentLine: state.currentLine + 1}))
@@ -36,11 +46,11 @@ class App extends React.Component {
     return (
       <div>
         <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 1 ? false : true}/>
-        <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 2 ? false : true}/>
-        <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 3 ? false : true}/>
-        <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 4 ? false : true}/>
-        <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 5 ? false : true}/>
-        <Letters order="1" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 6 ? false : true}/>
+        <Letters order="2" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 2 ? false : true}/>
+        <Letters order="3" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 3 ? false : true}/>
+        <Letters order="4" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 4 ? false : true}/>
+        <Letters order="5" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 5 ? false : true}/>
+        <Letters order="6" onCharacterChange={this.handleCharacterChange} disabled={this.state.currentLine === 6 ? false : true}/>
         <button onClick={this.handleClick}>Go</button>
       </div>
     )
