@@ -5,7 +5,7 @@ import React from 'react'
 export class Letters extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { order: this.props.order, letters: [] }
+    this.state = { order: this.props.order, chars: [] }
   }
 
   handleChange = (e) => {
@@ -16,7 +16,7 @@ export class Letters extends React.Component {
 
     const value = e.target.value.toUpperCase()
     const index = e.target.attributes.data.value
-    this.setState(state => state.letters[index] = value)
+    this.setState(state => state.chars[index] = value)
     e.target.value = value
 
     this.props.onCharacterChange(this.state)

@@ -9,8 +9,11 @@ class App extends React.Component {
     super(props)
     this.state = {
       word: pickWord(),
-      letters: {
-        1: []
+      words: {
+        1: {
+          correct: "GYBBB",
+          chars: ""
+        }
       },
       currentLine: 1
     }
@@ -18,25 +21,22 @@ class App extends React.Component {
     console.log(`word is ${this.state.word}`)
   }
 
-  handleCharacterChange = ({order, letters}) => {
+  handleCharacterChange = ({order, chars}) => {
     this.setState(state => {
-      state.letters[order] = letters
+      state.words[order].chars = chars
     })
   }
 
   handleClick = () => {
     const currentLine = this.state.currentLine
-    console.log(this.state.letters[currentLine].length)
-    if (this.state.letters[currentLine].length !== 5) {
+    if (this.state.words[currentLine].chars.length !== 5) {
       return
     }
-
-    console.log(this.state)
     
-    if (this.state.word === this.state.letters[currentLine].join("")) {
+    if (this.state.word === this.state.words[currentLine].chars.join("")) {
       console.log("congratulations")
     } else {
-      console.log(`you guessed ${this.state.letters[currentLine].join("")}`)
+      console.log(`you guessed ${this.state.words[currentLine].chars.join("")}`)
     }
 
     this.setState(state => ({currentLine: state.currentLine + 1}))
