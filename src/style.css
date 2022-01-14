@@ -3,4 +3,20 @@
   margin: 5px;
   height: 24px;
   text-align: center;
+  border: 1px solid #999
+}
+
+.character.G {
+  background: #16b93f;
+  color: #fff;
+}
+
+.character.Y {
+  background: yellow;
+  color: #000;
+}
+
+.character.B {
+  background: black;
+  color: #fff;
 }
