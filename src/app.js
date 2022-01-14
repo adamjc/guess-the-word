@@ -1,3 +1,5 @@
+// TODO: Pass chars through to <Letters>
+
 const React = require('react')
 const ReactDOM = require('react-dom')
 
@@ -26,6 +28,8 @@ class App extends React.Component {
   handleCharacterChange = ({order, chars}) => {
     this.setState(state => {
       state.words[order].chars = chars
+
+      return state
     })
   }
 
@@ -41,14 +45,21 @@ class App extends React.Component {
       console.log(`you guessed ${this.state.words[currentLine].chars.join("")}`)
     }
 
-    this.setState(state => ({currentLine: state.currentLine + 1}))
+    this.setState(state => {
+      state.words[currentLine].correct = calculateCorrectChars(state.word, state.words[currentLine].chars)
+      state.currentLine = state.currentLine + 1
+
+      return state
+    })
   }
 
   render () {
     const currentLine = this.state.currentLine
-    console.log("correct:", this.state.words[currentLine].correct)
+    console.log(`currentLine: ${JSON.stringify(currentLine, null, 2)}`)
+    console.log("correct:", this.state.words[currentLine])
+    console.log(`this.state: ${JSON.stringify(this.state.words[1].correct, null, 2)}`)
     return (
-      <div>
+      <div key={this.state.currentLine}>
         <Letters order="1" onCharacterChange={this.handleCharacterChange} correct={this.state.words[1].correct} disabled={this.state.currentLine === 1 ? false : true}/>
         <Letters order="2" onCharacterChange={this.handleCharacterChange} correct={this.state.words[2].correct} disabled={this.state.currentLine === 2 ? false : true}/>
         <Letters order="3" onCharacterChange={this.handleCharacterChange} correct={this.state.words[3].correct} disabled={this.state.currentLine === 3 ? false : true}/>
@@ -59,6 +70,22 @@ class App extends React.Component {
       </div>
     )
   }
+}
+
+function calculateCorrectChars (word, chars) {
+  const correct = []
+
+  for (let i = 0; i < chars.length; i += 1) {
+    if (word[i] === chars[i]) {
+      correct[i] = "G"
+    } else if (word.includes(chars[i])) {
+      correct[i] = "Y"
+    } else {
+      correct[i] = "B"
+    }
+  }
+
+  return correct.join("")
 }
 
 ReactDOM.render(<App />, document.getElementById('app'))

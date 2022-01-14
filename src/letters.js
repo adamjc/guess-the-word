@@ -27,7 +27,7 @@ export class Letters extends React.Component {
   }
 
   render () {
-    console.log("hello", this.state.correct)
+    console.log("hello", this.state)
 
     return (
       <div className="letters">
