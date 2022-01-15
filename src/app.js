@@ -1,6 +1,7 @@
 // TODO: Store results in cookies
 // TODO: Modal dialog box after each round
 // TODO: Set word length
+// TODO: Move cursor to next input when character has been entered
 // TODO: Do CSS
 // TODO: Host it
 
@@ -49,8 +50,15 @@ class App extends React.Component {
         state.currentLine = 0
         return state
       })
+
+      const wins = localStorage.getItem('wins')
+      localStorage.setItem('wins', wins + 1)
+      
     } else if (currentLine === 6) {
       console.log("You failed")
+
+      const losses = localStorage.getItem('losses')
+      localStorage.setItem('losses', losses + 1)
     }
 
     this.setState(state => {
@@ -92,7 +100,7 @@ class App extends React.Component {
         <Word order="5" chars={this.state.words[5].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[5].correct} disabled={this.state.currentLine === 5 ? false : true}/>
         <Word order="6" chars={this.state.words[6].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[6].correct} disabled={this.state.currentLine === 6 ? false : true}/>
         <button disabled={this.state.currentLine > 6} onClick={this.handleClick}>Guess</button>
-        <button disabled={this.state.currentLine > 6} onClick={this.handleReset}>⟲</button>
+        <button onClick={this.handleReset}>⟲</button>
       </div>
     )
   }
