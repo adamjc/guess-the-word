@@ -42,7 +42,7 @@ export class Word extends React.Component {
   render () {
     return (
       <div className="letters">
-        <input ref={this.state.inputs[0]} type="text" value={this.props.chars[0] || ''} disabled={this.props.disabled} className={"character " + this.state.correct[0]} data="0" minLength="1" maxLength="1" onChange={this.handleChange}/>
+        <input autoFocus={this.props.order === "1"} ref={this.state.inputs[0]} type="text" value={this.props.chars[0] || ''} disabled={this.props.disabled} className={"character " + this.state.correct[0]} data="0" minLength="1" maxLength="1" onChange={this.handleChange}/>
         <input ref={this.state.inputs[1]} type="text" value={this.props.chars[1] || ''} disabled={this.props.disabled} className={"character " + this.state.correct[1]} data="1" minLength="1" maxLength="1" onChange={this.handleChange}/>
         <input ref={this.state.inputs[2]} type="text" value={this.props.chars[2] || ''} disabled={this.props.disabled} className={"character " + this.state.correct[2]} data="2" minLength="1" maxLength="1" onChange={this.handleChange}/>
         <input ref={this.state.inputs[3]} type="text" value={this.props.chars[3] || ''} disabled={this.props.disabled} className={"character " + this.state.correct[3]} data="3" minLength="1" maxLength="1" onChange={this.handleChange}/>
