@@ -43,8 +43,8 @@ class App extends React.Component {
         state.currentLine = 0
         return state
       })
-    } else {
-      console.log(`you guessed ${this.state.words[currentLine].chars.join("")}`)
+    } else if (currentLine === 6) {
+      console.log("You failed")
     }
 
     this.setState(state => {
@@ -53,6 +53,27 @@ class App extends React.Component {
 
       return state
     })
+  }
+
+  handleReset = () => {
+    this.setState(_ => {
+      const word = pickWord()
+      console.log(`word is ${word}`)
+      return {
+        word,
+        words: {
+          1: { correct: "", chars: [] },
+          2: { correct: "", chars: [] },
+          3: { correct: "", chars: [] },
+          4: { correct: "", chars: [] },
+          5: { correct: "", chars: [] },
+          6: { correct: "", chars: [] }
+        },
+        currentLine: 1
+      }
+    })
+
+    
   }
 
   render () {
@@ -64,23 +85,26 @@ class App extends React.Component {
         <Word order="4" chars={this.state.words[4].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[4].correct} disabled={this.state.currentLine === 4 ? false : true}/>
         <Word order="5" chars={this.state.words[5].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[5].correct} disabled={this.state.currentLine === 5 ? false : true}/>
         <Word order="6" chars={this.state.words[6].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[6].correct} disabled={this.state.currentLine === 6 ? false : true}/>
-        <button onClick={this.handleClick}>Go</button>
+        <button disabled={this.state.currentLine > 6} onClick={this.handleClick}>Go</button>
+        <button disabled={this.state.currentLine > 6} onClick={this.handleReset}>⟲</button>
       </div>
     )
   }
 }
 
 function calculateCorrectChars (word, chars) {
-  const correct = []
+  const correct = chars.map((char, index) => {
+    if (word[index] === char) {
+      return "G"
+    } else if (word.includes(char)) {
+      return "Y"
+    } else {
+      return "B"
+    }
+  })
 
   for (let i = 0; i < chars.length; i += 1) {
-    if (word[i] === chars[i]) {
-      correct[i] = "G"
-    } else if (word.includes(chars[i])) {
-      correct[i] = "Y"
-    } else {
-      correct[i] = "B"
-    }
+    
   }
 
   return correct.join("")
