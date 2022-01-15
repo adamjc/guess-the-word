@@ -4,10 +4,16 @@ export class Word extends React.Component {
   constructor (props) {
     super(props)
     this.state = { 
-      order: this.props.order,
-      chars: this.props.chars,
-      correct: this.props.correct
+      order: props.order,
+      chars: props.chars,
+      correct: props.correct
     }
+  }
+
+  static getDerivedStateFromProps (nextProps, prevState) {
+    prevState.correct = nextProps.correct
+
+    return prevState
   }
 
   handleChange = (e) => {

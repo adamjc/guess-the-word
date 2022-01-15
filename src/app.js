@@ -39,6 +39,10 @@ class App extends React.Component {
     
     if (this.state.word === this.state.words[currentLine].chars.join("")) {
       console.log("congratulations")
+      this.setState(state => {
+        state.currentLine = 0
+        return state
+      })
     } else {
       console.log(`you guessed ${this.state.words[currentLine].chars.join("")}`)
     }
