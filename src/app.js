@@ -1,3 +1,9 @@
+// TODO: Store results in cookies
+// TODO: Modal dialog box after each round
+// TODO: Set word length
+// TODO: Do CSS
+// TODO: Host it
+
 const React = require('react')
 const ReactDOM = require('react-dom')
 
@@ -85,7 +91,7 @@ class App extends React.Component {
         <Word order="4" chars={this.state.words[4].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[4].correct} disabled={this.state.currentLine === 4 ? false : true}/>
         <Word order="5" chars={this.state.words[5].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[5].correct} disabled={this.state.currentLine === 5 ? false : true}/>
         <Word order="6" chars={this.state.words[6].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[6].correct} disabled={this.state.currentLine === 6 ? false : true}/>
-        <button disabled={this.state.currentLine > 6} onClick={this.handleClick}>Go</button>
+        <button disabled={this.state.currentLine > 6} onClick={this.handleClick}>Guess</button>
         <button disabled={this.state.currentLine > 6} onClick={this.handleReset}>⟲</button>
       </div>
     )
