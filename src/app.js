@@ -53,7 +53,6 @@ class App extends React.Component {
 
       const wins = localStorage.getItem('wins')
       localStorage.setItem('wins', wins + 1)
-      
     } else if (currentLine === 6) {
       console.log("You failed")
 
@@ -86,8 +85,6 @@ class App extends React.Component {
         currentLine: 1
       }
     })
-
-    
   }
 
   render () {
