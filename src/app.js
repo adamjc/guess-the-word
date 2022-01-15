@@ -1,5 +1,3 @@
-// TODO: Pass chars through to <Letters>
-
 const React = require('react')
 const ReactDOM = require('react-dom')
 
@@ -54,11 +52,6 @@ class App extends React.Component {
   }
 
   render () {
-    const currentLine = this.state.currentLine
-    console.log(`currentLine: ${JSON.stringify(currentLine, null, 2)}`)
-    console.log("correct:", this.state.words[currentLine])
-
-    console.log(`this.state: ${JSON.stringify(this.state.words[1].correct, null, 2)}`)
     return (
       <div key={this.state.currentLine}>
         <Word order="1" chars={this.state.words[1].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[1].correct} disabled={this.state.currentLine === 1 ? false : true}/>
