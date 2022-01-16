@@ -18,14 +18,15 @@ export class Word extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    const charIndex = prevProps.chars.length - 1
-    if (charIndex >= 0 && charIndex < prevState.inputs.length - 1) {
-      prevState.inputs[charIndex + 1].current.focus()
-    }
-
-    const lastCharIndex = prevProps.chars.indexOf("")
-    if (lastCharIndex >= 0) {
-      prevState.inputs[lastCharIndex].current.focus()
+    const charIndex = this.state.chars.length
+    console.log(`charIndex: ${JSON.stringify(charIndex, null, 2)}`)
+    if (charIndex >= 0 && charIndex < prevState.inputs.length) {
+      console.log(`prevProps: ${JSON.stringify(prevProps, null, 2)}`)
+      console.log(prevState)
+      console.log("moving cursor to: ", charIndex + 1)
+      prevState.inputs[charIndex].current.focus()
+    } else if (charIndex == 0) {
+      prevState.inputs[charIndex].current.focus()
     }
   }
 
@@ -46,15 +47,22 @@ export class Word extends React.Component {
   handleKeyPress = (e) => {
     if (e.code === "Backspace") {
       const charIndex = e.target.attributes.data.value
-      this.setState(state => {
-        if (charIndex === "4" && state.chars[charIndex] !== '') {
-          state.chars[charIndex] = ''
-        } else {
-          state.chars[charIndex - 1] = ''
-        }
 
-        return state
+      let chars
+      if (charIndex == this.state.inputs.length - 1 && this.state.chars[charIndex]) { // last character
+        chars = this.state.chars.slice(0, charIndex)
+      } else {
+        chars = this.state.chars.slice(0, charIndex - 1)
+      }
+
+      this.setState({
+        chars
       })
+
+      console.log(`charIndex: ${JSON.stringify(charIndex, null, 2)}`)
+      console.log(`chars: ${JSON.stringify(chars, null, 2)}`)
+
+      this.props.onCharacterChange({order: this.state.order, chars})
     }
   }  
 

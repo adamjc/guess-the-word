@@ -1,4 +1,3 @@
-// TODO: Delete element from chars array instead of replacing with '' when backspace pressed.
 // TODO: Store results in cookies
 // TODO: Modal dialog box after each round
 // TODO: Set word length
