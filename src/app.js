@@ -1,4 +1,4 @@
-// TODO: "Enter" does a guess
+// TODO: Move cursor to next line after a bad guess
 // TODO: Store results in cookies
 // TODO: Modal dialog box after each round
 // TODO: Set word length
@@ -87,9 +87,15 @@ class App extends React.Component {
     })
   }
 
+  handleKeyDown = (e) => {
+    if (e.code === "Enter") {
+      this.handleClick()
+    }
+  }
+
   render () {
     return (
-      <div key={this.state.currentLine}>
+      <div key={this.state.currentLine} onKeyDown={this.handleKeyDown}>
         <Word order="1" chars={this.state.words[1].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[1].correct} disabled={this.state.currentLine === 1 ? false : true}/>
         <Word order="2" chars={this.state.words[2].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[2].correct} disabled={this.state.currentLine === 2 ? false : true}/>
         <Word order="3" chars={this.state.words[3].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[3].correct} disabled={this.state.currentLine === 3 ? false : true}/>
