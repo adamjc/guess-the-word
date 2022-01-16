@@ -13,7 +13,7 @@ export class Word extends React.Component {
 
   static getDerivedStateFromProps (nextProps, prevState) {
     prevState.correct = nextProps.correct
-
+    prevState.chars = nextProps.chars
     return prevState
   }
 
@@ -27,6 +27,7 @@ export class Word extends React.Component {
 
   handleChange = (e) => {
     console.log(e)
+
     if (!e.target.value.match(/[a-zA-Z]/)) {
       e.target.value = ''
       return
@@ -43,7 +44,7 @@ export class Word extends React.Component {
   render () {
     return (
       <div className="letters">
-        <input autoFocus={this.props.order === "1"} ref={this.state.inputs[0]} type="text" value={this.props.chars[0] || ''} disabled={this.props.disabled} className={"character " + this.state.correct[0]} data="0" minLength="1" maxLength="1" onChange={this.handleChange}/>
+        <input ref={this.state.inputs[0]} type="text" value={this.props.chars[0] || ''} disabled={this.props.disabled} className={"character " + this.state.correct[0]} data="0" minLength="1" maxLength="1" onChange={this.handleChange} autoFocus={this.props.order === "1"} />
         <input ref={this.state.inputs[1]} type="text" value={this.props.chars[1] || ''} disabled={this.props.disabled} className={"character " + this.state.correct[1]} data="1" minLength="1" maxLength="1" onChange={this.handleChange}/>
         <input ref={this.state.inputs[2]} type="text" value={this.props.chars[2] || ''} disabled={this.props.disabled} className={"character " + this.state.correct[2]} data="2" minLength="1" maxLength="1" onChange={this.handleChange}/>
         <input ref={this.state.inputs[3]} type="text" value={this.props.chars[3] || ''} disabled={this.props.disabled} className={"character " + this.state.correct[3]} data="3" minLength="1" maxLength="1" onChange={this.handleChange}/>

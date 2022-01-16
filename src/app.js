@@ -1,3 +1,4 @@
+// TODO: "Enter" does a guess
 // TODO: Delete removes a character and focuses on correct input
 // TODO: Store results in cookies
 // TODO: Modal dialog box after each round
@@ -71,21 +72,19 @@ class App extends React.Component {
   }
 
   handleReset = () => {
-    this.setState(_ => {
-      const word = pickWord()
-      console.log(`word is ${word}`)
-      return {
-        word,
-        words: {
-          1: { correct: "", chars: [] },
-          2: { correct: "", chars: [] },
-          3: { correct: "", chars: [] },
-          4: { correct: "", chars: [] },
-          5: { correct: "", chars: [] },
-          6: { correct: "", chars: [] }
-        },
-        currentLine: 1
-      }
+    const word = pickWord()
+    console.log(`word is ${word}`)
+    this.setState({
+      word,
+      words: {
+        1: { correct: "", chars: [] },
+        2: { correct: "", chars: [] },
+        3: { correct: "", chars: [] },
+        4: { correct: "", chars: [] },
+        5: { correct: "", chars: [] },
+        6: { correct: "", chars: [] }
+      },
+      currentLine: 1
     })
   }
 
