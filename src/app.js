@@ -1,5 +1,4 @@
 // TODO: "Enter" does a guess
-// TODO: Delete removes a character and focuses on correct input
 // TODO: Store results in cookies
 // TODO: Modal dialog box after each round
 // TODO: Set word length
