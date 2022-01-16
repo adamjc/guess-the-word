@@ -26,6 +26,7 @@ export class Word extends React.Component {
   }
 
   handleChange = (e) => {
+    console.log(e)
     if (!e.target.value.match(/[a-zA-Z]/)) {
       e.target.value = ''
       return

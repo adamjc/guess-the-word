@@ -1,9 +1,11 @@
+// TODO: Delete removes a character and focuses on correct input
 // TODO: Store results in cookies
 // TODO: Modal dialog box after each round
 // TODO: Set word length
 // TODO: Move cursor to next input when character has been entered
 // TODO: Do CSS
 // TODO: Host it
+// TODO: Add keyboard
 
 const React = require('react')
 const ReactDOM = require('react-dom')
