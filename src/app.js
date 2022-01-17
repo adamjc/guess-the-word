@@ -66,7 +66,8 @@ class App extends React.Component {
     this.setState(state => {
       state.words[currentLine].correct = calculateCorrectChars(state.word, state.words[currentLine].chars)
       state.currentLine = state.currentLine + 1
-
+      state.charsEntered = state.charsEntered.concat(state.words[currentLine].chars).reduce(removeDupes, [])
+      console.log(state.charsEntered)
       return state
     })
   }
@@ -94,7 +95,7 @@ class App extends React.Component {
     }
   }
 
-  updateInput = char => {
+  handleKeyboardInput = char => {
     const chars = this.state.words[this.state.currentLine].chars.concat(char)
 
     this.handleCharacterChange({
@@ -114,10 +115,18 @@ class App extends React.Component {
         <Word focused={this.state.currentLine === 6 ? true : false} order="6" chars={this.state.words[6].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[6].correct} disabled={this.state.currentLine === 6 ? false : true}/>
         <button disabled={this.state.currentLine > 6} onClick={this.handleClick}>Guess</button>
         <button onClick={this.handleReset}>⟲</button>
-        <Keyboard updateInput={this.updateInput}></Keyboard>
+        <Keyboard updateInput={this.handleKeyboardInput}></Keyboard>
       </div>
     )
   }
+}
+
+function removeDupes (chars, char) {
+  if (!chars.includes(char)) {
+    chars.push(char)
+  }
+
+  return chars
 }
 
 function calculateCorrectChars (word, chars) {
