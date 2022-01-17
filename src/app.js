@@ -1,16 +1,17 @@
+// TODO: Add keyboard
 // TODO: Store results in cookies
 // TODO: Modal dialog box after each round
 // TODO: Set word length
 // TODO: Move cursor to next input when character has been entered
 // TODO: Do CSS
 // TODO: Host it
-// TODO: Add keyboard
 
 const React = require('react')
 const ReactDOM = require('react-dom')
 
 const { Word } = require('./word.js')
 import pickWord from './words.js'
+import Keyboard from './keyboard.js'
 
 class App extends React.Component {
   constructor (props) {
@@ -53,12 +54,12 @@ class App extends React.Component {
       })
 
       const wins = localStorage.getItem('wins')
-      localStorage.setItem('wins', wins + 1)
+      localStorage.setItem('wins', Number(wins) + 1)
     } else if (currentLine === 6) {
       console.log("You failed")
 
       const losses = localStorage.getItem('losses')
-      localStorage.setItem('losses', losses + 1)
+      localStorage.setItem('losses', Number(losses) + 1)
     }
 
     this.setState(state => {
@@ -92,6 +93,18 @@ class App extends React.Component {
     }
   }
 
+  updateInput = char => {
+    this.setState(state => {
+      const currentChars = state.words[state.currentLine].chars
+
+      if (currentChars.length !== 5) {
+        state.words[state.currentLine].chars.push(char)
+      }
+
+      return state
+    })
+  }
+
   render () {
     return (
       <div key={this.state.currentLine} onKeyDown={this.handleKeyDown}>
@@ -103,6 +116,7 @@ class App extends React.Component {
         <Word focused={this.state.currentLine === 6 ? true : false} order="6" chars={this.state.words[6].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[6].correct} disabled={this.state.currentLine === 6 ? false : true}/>
         <button disabled={this.state.currentLine > 6} onClick={this.handleClick}>Guess</button>
         <button onClick={this.handleReset}>⟲</button>
+        <Keyboard updateInput={this.updateInput}></Keyboard>
       </div>
     )
   }

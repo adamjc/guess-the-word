@@ -19,11 +19,7 @@ export class Word extends React.Component {
 
   componentDidUpdate (prevProps, prevState) {
     const charIndex = this.state.chars.length
-    console.log(`charIndex: ${JSON.stringify(charIndex, null, 2)}`)
     if (charIndex >= 0 && charIndex < prevState.inputs.length) {
-      console.log(`prevProps: ${JSON.stringify(prevProps, null, 2)}`)
-      console.log(prevState)
-      console.log("moving cursor to: ", charIndex + 1)
       prevState.inputs[charIndex].current.focus()
     } else if (charIndex == 0) {
       prevState.inputs[charIndex].current.focus()
@@ -58,9 +54,6 @@ export class Word extends React.Component {
       this.setState({
         chars
       })
-
-      console.log(`charIndex: ${JSON.stringify(charIndex, null, 2)}`)
-      console.log(`chars: ${JSON.stringify(chars, null, 2)}`)
 
       this.props.onCharacterChange({order: this.state.order, chars})
     }
