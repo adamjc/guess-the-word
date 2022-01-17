@@ -26,6 +26,7 @@ class App extends React.Component {
         5: { correct: "", chars: [] },
         6: { correct: "", chars: [] }
       },
+      charsEntered: [],
       currentLine: 1
     }
 
@@ -94,14 +95,11 @@ class App extends React.Component {
   }
 
   updateInput = char => {
-    this.setState(state => {
-      const currentChars = state.words[state.currentLine].chars
+    const chars = this.state.words[this.state.currentLine].chars.concat(char)
 
-      if (currentChars.length !== 5) {
-        state.words[state.currentLine].chars.push(char)
-      }
-
-      return state
+    this.handleCharacterChange({
+      order: this.state.currentLine,
+      chars: chars.slice(0, 5)
     })
   }
 
