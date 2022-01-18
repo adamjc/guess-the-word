@@ -21,7 +21,13 @@ export default class Keyboard extends Component {
       <div className="keyboard">
         {
           keys.map(key => {
-            return <button key={key} className="key" onClick={this.handleClick}>{key}</button>
+            let colour
+            if (this.props.charsEntered.length) {
+              const result = this.props.charsEntered.find(({ char }) => char === key)
+              
+              colour = result ? result.colour : "N"
+            }
+            return <button disabled={colour && colour === "B"} key={key} className={"key " + colour} onClick={this.handleClick}>{key}</button>
           })
         }
       </div>

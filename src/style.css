@@ -6,26 +6,27 @@
   border: 1px solid #999
 }
 
-.character.G {
+.character.G, .keyboard .key.G {
   background: #16b93f;
   color: #fff;
 }
 
-.character.Y {
+.character.Y, .keyboard .key.Y {
   background: yellow;
   color: #000;
 }
 
-.character.B {
+.character.B, .keyboard .key.B {
   background: black;
   color: #fff;
 }
 
-/* .keyboard .key {
-  background: #2b0921;
+.keyboard .key {
+  background: #b1b1b1;
   border: 0;
   width: 30px;
   height: 30px;
   font-weight: bold;
-  color: #86a6c7;
-} */
+  color: #17191c;
+  margin: 2px;
+}

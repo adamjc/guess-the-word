@@ -1,4 +1,4 @@
-// TODO: Add keyboard
+// TODO: Update charsEntered with priority, G > Y
 // TODO: Store results in cookies
 // TODO: Modal dialog box after each round
 // TODO: Set word length
@@ -66,8 +66,8 @@ class App extends React.Component {
     this.setState(state => {
       state.words[currentLine].correct = calculateCorrectChars(state.word, state.words[currentLine].chars)
       state.currentLine = state.currentLine + 1
-      state.charsEntered = state.charsEntered.concat(state.words[currentLine].chars).reduce(removeDupes, [])
-      console.log(state.charsEntered)
+      const correctChars = calculateCorrectCharsObj(state.word, state.words[currentLine].chars)
+      state.charsEntered = state.charsEntered.concat(correctChars).filter(removeDupes)
       return state
     })
   }
@@ -85,7 +85,8 @@ class App extends React.Component {
         5: { correct: "", chars: [] },
         6: { correct: "", chars: [] }
       },
-      currentLine: 1
+      currentLine: 1,
+      charsEntered: []
     })
   }
 
@@ -114,35 +115,43 @@ class App extends React.Component {
         <Word focused={this.state.currentLine === 5 ? true : false} order="5" chars={this.state.words[5].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[5].correct} disabled={this.state.currentLine === 5 ? false : true}/>
         <Word focused={this.state.currentLine === 6 ? true : false} order="6" chars={this.state.words[6].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[6].correct} disabled={this.state.currentLine === 6 ? false : true}/>
         <button disabled={this.state.currentLine > 6} onClick={this.handleClick}>Guess</button>
-        <button onClick={this.handleReset}>⟲</button>
-        <Keyboard updateInput={this.handleKeyboardInput}></Keyboard>
+        <button onClick={this.handleReset}>New Game</button>
+        <Keyboard charsEntered={this.state.charsEntered} updateInput={this.handleKeyboardInput}></Keyboard>
       </div>
     )
   }
 }
 
-function removeDupes (chars, char) {
-  if (!chars.includes(char)) {
-    chars.push(char)
-  }
-
-  return chars
+function removeDupes (value, index, array) {
+  return index === array.findIndex(i => i.char === value.char)
 }
 
-function calculateCorrectChars (word, chars) {
-  const correct = chars.map((char, index) => {
+function isCorrectChar (word) {
+  return (char, index) => {
     if (word[index] === char) {
       return "G"
     } else if (word.includes(char)) {
       return "Y"
-    } else {
-      return "B"
+    }
+  
+    return "B"
+  }
+}
+
+function calculateCorrectCharsObj (word, chars) {
+  const correct = chars.map((char, index) => {
+    const colour = isCorrectChar(word)(char, index)
+    return {
+      char,
+      colour
     }
   })
 
-  for (let i = 0; i < chars.length; i += 1) {
-    
-  }
+  return correct
+}
+
+function calculateCorrectChars (word, chars) {
+  const correct = chars.map(isCorrectChar(word))
 
   return correct.join("")
 }
