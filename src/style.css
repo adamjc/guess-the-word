@@ -30,3 +30,7 @@
   color: #17191c;
   margin: 2px;
 }
+
+.keyboard .key.guess {
+  width: 60px;
+}

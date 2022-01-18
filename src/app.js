@@ -41,6 +41,11 @@ class App extends React.Component {
 
   handleClick = () => {
     const currentLine = this.state.currentLine
+    
+    if (currentLine > 6) {
+      return
+    }
+
     if (this.state.words[currentLine].chars.length !== 5) {
       return
     }
@@ -112,9 +117,8 @@ class App extends React.Component {
         <Word focused={this.state.currentLine === 4 ? true : false} order="4" chars={this.state.words[4].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[4].correct} disabled={this.state.currentLine === 4 ? false : true}/>
         <Word focused={this.state.currentLine === 5 ? true : false} order="5" chars={this.state.words[5].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[5].correct} disabled={this.state.currentLine === 5 ? false : true}/>
         <Word focused={this.state.currentLine === 6 ? true : false} order="6" chars={this.state.words[6].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[6].correct} disabled={this.state.currentLine === 6 ? false : true}/>
-        <button disabled={this.state.currentLine > 6} onClick={this.handleClick}>Guess</button>
+        <Keyboard charsEntered={this.state.charsEntered} updateInput={this.handleKeyboardInput} handleGuess={this.handleClick}></Keyboard>
         <button onClick={this.handleReset}>New Game</button>
-        <Keyboard charsEntered={this.state.charsEntered} updateInput={this.handleKeyboardInput}></Keyboard>
       </div>
     )
   }

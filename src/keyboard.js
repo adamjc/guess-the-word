@@ -16,6 +16,10 @@ export default class Keyboard extends Component {
     this.props.updateInput(e.target.innerText)
   }
 
+  handleGuess = _ => {
+    this.props.handleGuess()
+  }
+
   render () {
     return (
       <div className="keyboard">
@@ -30,6 +34,7 @@ export default class Keyboard extends Component {
             return <button disabled={colour && colour === "B"} key={key} className={"key " + colour} onClick={this.handleClick}>{key}</button>
           })
         }
+        <button className="key guess" onClick={this.handleGuess}>Guess</button>
       </div>
       
     )
