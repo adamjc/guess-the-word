@@ -1,8 +1,6 @@
-// TODO: Update charsEntered with priority, G > Y
 // TODO: Store results in cookies
 // TODO: Modal dialog box after each round
 // TODO: Set word length
-// TODO: Move cursor to next input when character has been entered
 // TODO: Do CSS
 // TODO: Host it
 
@@ -67,7 +65,7 @@ class App extends React.Component {
       state.words[currentLine].correct = calculateCorrectChars(state.word, state.words[currentLine].chars)
       state.currentLine = state.currentLine + 1
       const correctChars = calculateCorrectCharsObj(state.word, state.words[currentLine].chars)
-      state.charsEntered = state.charsEntered.concat(correctChars).filter(removeDupes)
+      state.charsEntered = state.charsEntered.concat(correctChars).sort(greenFirst).filter(removeDupes)
       return state
     })
   }
@@ -120,6 +118,18 @@ class App extends React.Component {
       </div>
     )
   }
+}
+
+function greenFirst (a, b) {
+  if (a.colour === "G" && b.colour !== "G") {
+    return -1
+  } 
+
+  if (a.colour !== "G" && b.colour === "G") {
+    return 1
+  }
+
+  return a.char - b.char
 }
 
 function removeDupes (value, index, array) {
