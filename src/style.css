@@ -4,9 +4,10 @@
 }
 
 .character {
-  width: 24px;
+  font-size: 2.5em;
+  width: 50px;
   margin: 5px;
-  height: 24px;
+  height: 50px;
   text-align: center;
   border: 1px solid #999
 }
@@ -17,17 +18,17 @@
 }
 
 .character.G, .keyboard .key.G {
-  background: #16b93f;
+  background: #42b883;
   color: #fff;
 }
 
 .character.Y, .keyboard .key.Y {
-  background: yellow;
+  background: #edc617;
   color: #000;
 }
 
 .character.B, .keyboard .key.B {
-  background: black;
+  background: rgb(87, 87, 87);
   color: #fff;
 }
 
@@ -36,10 +37,10 @@
   background: #b1b1b1;
   border: 0;
   width: 30px;
-  height: 30px;
-  font-weight: bold;
+  height: 40px;
   color: #17191c;
   margin: 2px;
+  font-size: 1.25em;
 }
 
 .flex {
