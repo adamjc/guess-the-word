@@ -1,9 +1,19 @@
+.app {
+  display: flex;
+  justify-content: center;
+}
+
 .character {
   width: 24px;
   margin: 5px;
   height: 24px;
   text-align: center;
   border: 1px solid #999
+}
+
+.letters {
+  display: flex;
+  justify-content: center;
 }
 
 .character.G, .keyboard .key.G {
@@ -21,7 +31,8 @@
   color: #fff;
 }
 
-.keyboard .key {
+.key {
+  flex: 1;
   background: #b1b1b1;
   border: 0;
   width: 30px;
@@ -31,6 +42,30 @@
   margin: 2px;
 }
 
+.flex {
+  display: flex;
+}
+
+.guess.key {
+  flex: 1;
+}
+
+.new-game.key {
+  flex: 1;
+}
+
+.new-game.key:hover {
+  filter: brightness(85%)
+}
+
 .keyboard .key.guess {
   width: 60px;
+}
+
+.keyboard .key:hover {
+  filter: brightness(85%)
+}
+
+.row {
+  display: flex;
 }

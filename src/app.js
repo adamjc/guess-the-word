@@ -1,8 +1,8 @@
+// TODO: Host it
+// TODO: Do CSS
+// TODO: Set word length
 // TODO: Store results in cookies
 // TODO: Modal dialog box after each round
-// TODO: Set word length
-// TODO: Do CSS
-// TODO: Host it
 
 const React = require('react')
 const ReactDOM = require('react-dom')
@@ -117,8 +117,11 @@ class App extends React.Component {
         <Word focused={this.state.currentLine === 4 ? true : false} order="4" chars={this.state.words[4].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[4].correct} disabled={this.state.currentLine === 4 ? false : true}/>
         <Word focused={this.state.currentLine === 5 ? true : false} order="5" chars={this.state.words[5].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[5].correct} disabled={this.state.currentLine === 5 ? false : true}/>
         <Word focused={this.state.currentLine === 6 ? true : false} order="6" chars={this.state.words[6].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[6].correct} disabled={this.state.currentLine === 6 ? false : true}/>
-        <Keyboard charsEntered={this.state.charsEntered} updateInput={this.handleKeyboardInput} handleGuess={this.handleClick}></Keyboard>
-        <button onClick={this.handleReset}>New Game</button>
+        <Keyboard charsEntered={this.state.charsEntered} updateInput={this.handleKeyboardInput}></Keyboard>
+        <div className="flex">
+          <button className="guess key" onClick={this.handleClick}>Guess</button>
+          <button className="new-game key" onClick={this.handleReset}>New Game</button>
+        </div>
       </div>
     )
   }
