@@ -31,9 +31,10 @@ jobs:
         run: |
           npm i
           npx parcel build src/index.html
-          mv src/* .
-          rm -rf dist node_modules src package.json package-lock.json
           git checkout pages
+          mv dist/* .
+          rm -rf dist node_modules src package.json package-lock.json .parcel-cache
+          ls -al
           git add .
           git commit -m "Updating Pages"
           git push
