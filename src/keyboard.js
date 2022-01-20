@@ -21,7 +21,7 @@ export default class Keyboard extends Component {
       <div className="keyboard">
         {
           rows.map(row => {
-            return <div className="row">
+            return <div key={row} className="row">
               {
                 row.map(key => {
                   let colour

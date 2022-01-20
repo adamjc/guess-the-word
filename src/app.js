@@ -1,5 +1,3 @@
-// TODO: Host it
-// TODO: Replace inputs with divs
 // TODO: Do CSS (colours)
 // TODO: Set word length
 // TODO: Store results in cookies
@@ -32,12 +30,8 @@ class App extends React.Component {
     console.log(`word is ${this.state.word}`)
   }
 
-  handleCharacterChange = ({order, chars}) => {
-    this.setState(state => {
-      state.words[order].chars = chars
-
-      return state
-    })
+  componentDidMount () {
+    document.addEventListener('keydown', this.handleKeyDown)
   }
 
   handleClick = () => {
@@ -95,29 +89,48 @@ class App extends React.Component {
   }
 
   handleKeyDown = (e) => {
-    if (e.code === "Enter") {
+    console.log(e)
+    
+    const char = e.key.toUpperCase()
+    if (char === "ENTER") {
       this.handleClick()
+      return
     }
-  }
 
-  handleKeyboardInput = char => {
-    const chars = this.state.words[this.state.currentLine].chars.concat(char)
+    const currentLine = this.state.currentLine
+    if (char === "BACKSPACE") {
+      this.setState(state => {
+        state.words[currentLine].chars = state.words[currentLine].chars.slice(0, state.words[currentLine].chars.length - 1)
 
-    this.handleCharacterChange({
-      order: this.state.currentLine,
-      chars: chars.slice(0, 5)
+        return state
+      })
+
+      return
+    }
+
+    const alphabetChar = /^[a-zA-Z]{1}$/
+    if (!char.match(alphabetChar)) {
+      return
+    }
+    
+    const chars = this.state.words[currentLine].chars.concat(char).slice(0, 5)
+    this.setState(state => {
+      state.words[currentLine].chars = chars
+
+      return state
     })
   }
 
   render () {
     return (
-      <div key={this.state.currentLine} onKeyDown={this.handleKeyDown}>
-        <Word focused={this.state.currentLine === 1 ? true : false} order="1" chars={this.state.words[1].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[1].correct} disabled={this.state.currentLine === 1 ? false : true}/>
-        <Word focused={this.state.currentLine === 2 ? true : false} order="2" chars={this.state.words[2].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[2].correct} disabled={this.state.currentLine === 2 ? false : true}/>
-        <Word focused={this.state.currentLine === 3 ? true : false} order="3" chars={this.state.words[3].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[3].correct} disabled={this.state.currentLine === 3 ? false : true}/>
-        <Word focused={this.state.currentLine === 4 ? true : false} order="4" chars={this.state.words[4].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[4].correct} disabled={this.state.currentLine === 4 ? false : true}/>
-        <Word focused={this.state.currentLine === 5 ? true : false} order="5" chars={this.state.words[5].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[5].correct} disabled={this.state.currentLine === 5 ? false : true}/>
-        <Word focused={this.state.currentLine === 6 ? true : false} order="6" chars={this.state.words[6].chars} onCharacterChange={this.handleCharacterChange} correct={this.state.words[6].correct} disabled={this.state.currentLine === 6 ? false : true}/>
+      <div key={this.state.currentLine}>
+        <Word order="1" chars={this.state.words[1].chars} correct={this.state.words[1].correct}/>
+        <Word order="2" chars={this.state.words[2].chars} correct={this.state.words[2].correct}/>
+        <Word order="3" chars={this.state.words[3].chars} correct={this.state.words[3].correct}/>
+        <Word order="4" chars={this.state.words[4].chars} correct={this.state.words[4].correct}/>
+        <Word order="5" chars={this.state.words[5].chars} correct={this.state.words[5].correct}/>
+        <Word order="6" chars={this.state.words[6].chars} correct={this.state.words[6].correct}/>
+
         <div className="input">
           <Keyboard charsEntered={this.state.charsEntered} updateInput={this.handleKeyboardInput}></Keyboard>
           <div className="flex">
