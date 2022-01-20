@@ -31,7 +31,7 @@ jobs:
       - name: Make Pages
         run: |
           npm i
-          npx parcel build src/index.html
+          npx parcel --public-url './' build src/index.html
           rm -rf package-lock.json
           git checkout pages
           mv dist/* .
