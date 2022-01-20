@@ -28,6 +28,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Make Pages
         run: |
+          npm i
           npx parcel build src/index.html
           mv src/* .
           rm -rf dist node_modules src package.json package-lock.json
