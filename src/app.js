@@ -138,12 +138,14 @@ class App extends React.Component {
   render () {
     return (
       <div key={this.state.currentLine}>
-        <Word order="1" chars={this.state.words[1].chars} correct={this.state.words[1].correct}/>
-        <Word order="2" chars={this.state.words[2].chars} correct={this.state.words[2].correct}/>
-        <Word order="3" chars={this.state.words[3].chars} correct={this.state.words[3].correct}/>
-        <Word order="4" chars={this.state.words[4].chars} correct={this.state.words[4].correct}/>
-        <Word order="5" chars={this.state.words[5].chars} correct={this.state.words[5].correct}/>
-        <Word order="6" chars={this.state.words[6].chars} correct={this.state.words[6].correct}/>
+        <div className="words-list">
+          <Word order="1" chars={this.state.words[1].chars} correct={this.state.words[1].correct}/>
+          <Word order="2" chars={this.state.words[2].chars} correct={this.state.words[2].correct}/>
+          <Word order="3" chars={this.state.words[3].chars} correct={this.state.words[3].correct}/>
+          <Word order="4" chars={this.state.words[4].chars} correct={this.state.words[4].correct}/>
+          <Word order="5" chars={this.state.words[5].chars} correct={this.state.words[5].correct}/>
+          <Word order="6" chars={this.state.words[6].chars} correct={this.state.words[6].correct}/>
+        </div>
         {this.state.badGuess ? <div className="bad-guess">Word not in word list</div> : ''}
         <div className="input">
           <Keyboard charsEntered={this.state.charsEntered} updateInput={this.handleKeyboardInput}></Keyboard>

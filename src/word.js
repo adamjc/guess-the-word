@@ -33,7 +33,7 @@ export class Word extends React.Component {
 
   render () {
     return (
-      <div className="letters">
+      <div className="words">
         <div className={"character " + this.state.correct[0]} data="0">{this.props.chars[0] || ''}</div>
         <div className={"character " + this.state.correct[1]} data="1">{this.props.chars[1] || ''} </div>
         <div className={"character " + this.state.correct[2]} data="2">{this.props.chars[2] || ''} </div>
