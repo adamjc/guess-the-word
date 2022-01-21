@@ -1,4 +1,5 @@
 // TODO: Add tactile feedback to touch actions for keyboard (for mobile)
+// TODO: Show word if user loses
 // TODO: Add help modal
 // TODO: Do CSS (colours)
 // TODO: Set word length
