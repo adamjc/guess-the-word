@@ -82,7 +82,7 @@ body {
   width: 60px;
 }
 
-.key:hover {
+.key:hover, .key:active {
   filter: brightness(85%)
 }
 
