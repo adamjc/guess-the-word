@@ -1,6 +1,11 @@
 body {
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Open Sans';
   margin: 0 5px;
+}
+
+h1 {
+  text-align: center;
+  margin: 10px 0;
 }
 
 .app {
@@ -26,6 +31,10 @@ body {
 
 .words-list {
   margin-bottom: 10px;
+}
+
+.character {
+  border-radius: 5px;
 }
 
 .character.G, .keyboard .key.G {
