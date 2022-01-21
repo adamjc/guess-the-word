@@ -147,7 +147,7 @@ class App extends React.Component {
         {this.state.badGuess ? <div className="bad-guess">Word not in word list</div> : ''}
         <div className="input">
           <Keyboard charsEntered={this.state.charsEntered} updateInput={this.handleKeyboardInput}></Keyboard>
-          <div className="flex">
+          <div className="guess_new-game flex">
             <button className="guess key" onClick={this.handleClick}>Guess</button>
             <button className="new-game key" onClick={this.handleReset}>New Game</button>
           </div>
