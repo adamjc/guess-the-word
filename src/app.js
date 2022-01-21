@@ -88,9 +88,11 @@ class App extends React.Component {
     })
   }
 
+  handleKeyboardInput = char => {
+    this.handleKeyDown({ key: char })
+  }
+
   handleKeyDown = (e) => {
-    console.log(e)
-    
     const char = e.key.toUpperCase()
     if (char === "ENTER") {
       this.handleClick()
@@ -98,7 +100,7 @@ class App extends React.Component {
     }
 
     const currentLine = this.state.currentLine
-    if (char === "BACKSPACE") {
+    if (char === "BACKSPACE" || char === "←") {
       this.setState(state => {
         state.words[currentLine].chars = state.words[currentLine].chars.slice(0, state.words[currentLine].chars.length - 1)
 
