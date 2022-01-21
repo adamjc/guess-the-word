@@ -1,8 +1,8 @@
-// TODO: Match input against entire list of words
+// TODO: Add tactile feedback to touch actions for keyboard (for mobile)
+// TODO: Add help modal
 // TODO: Do CSS (colours)
 // TODO: Set word length
 // TODO: Store results in cookies
-// TODO: Add help modal
 
 const React = require('react')
 const ReactDOM = require('react-dom')
