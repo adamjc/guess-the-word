@@ -1,3 +1,4 @@
+// TODO: Match input against entire list of words
 // TODO: Do CSS (colours)
 // TODO: Set word length
 // TODO: Store results in cookies
@@ -7,7 +8,7 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 
 const { Word } = require('./word.js')
-import pickWord from './words.js'
+import { pickWord, words }  from './words.js'
 import Keyboard from './keyboard.js'
 
 class App extends React.Component {
@@ -44,8 +45,18 @@ class App extends React.Component {
     if (this.state.words[currentLine].chars.length !== 5) {
       return
     }
+
+    const guess = this.state.words[currentLine].chars.join("")
+    console.log(`guess: ${JSON.stringify(guess, null, 2)}`)
+    if (!words.includes(guess.toLowerCase())) {
+      console.log('Word not in word list')
+      this.setState(({badGuess: true}))
+      return 
+    }
+
+    this.setState(({badGuess: false}))
     
-    if (this.state.word === this.state.words[currentLine].chars.join("")) {
+    if (this.state.word === guess) {
       console.log("congratulations")
       this.setState(state => {
         state.currentLine = 0
@@ -132,7 +143,7 @@ class App extends React.Component {
         <Word order="4" chars={this.state.words[4].chars} correct={this.state.words[4].correct}/>
         <Word order="5" chars={this.state.words[5].chars} correct={this.state.words[5].correct}/>
         <Word order="6" chars={this.state.words[6].chars} correct={this.state.words[6].correct}/>
-
+        {this.state.badGuess ? <div className="bad-guess">Word not in word list</div> : ''}
         <div className="input">
           <Keyboard charsEntered={this.state.charsEntered} updateInput={this.handleKeyboardInput}></Keyboard>
           <div className="flex">

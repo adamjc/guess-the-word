@@ -40,7 +40,12 @@ const words = [
   "write", "wrong", "wrote", "yield", "young", "youth"
 ]
 
-export default function pickWord () {
+function pickWord () {
   const r = Math.floor(Math.random() * words.length)
   return words[r].toUpperCase()
+}
+
+export {
+  pickWord,
+  words
 }

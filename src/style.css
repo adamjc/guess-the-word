@@ -49,6 +49,13 @@ body {
   font-size: 1.25em;
 }
 
+.bad-guess {
+  display: flex;
+  justify-content: center;
+  font-size: 2em;
+  color: #1a1a1a;
+}
+
 .flex {
   display: flex;
 }
