@@ -39,7 +39,7 @@ class App extends React.Component {
   handleClick = () => {
     const currentLine = this.state.currentLine
     
-    if (currentLine > 6) {
+    if (this.state.gameEnd) {
       return
     }
 
@@ -48,9 +48,7 @@ class App extends React.Component {
     }
 
     const guess = this.state.words[currentLine].chars.join("")
-    console.log(`guess: ${JSON.stringify(guess, null, 2)}`)
     if (!words.includes(guess.toLowerCase())) {
-      console.log('Word not in word list')
       this.setState(({badGuess: true}))
       return 
     }
@@ -61,7 +59,6 @@ class App extends React.Component {
       console.log("congratulations")
       this.setState(state => {
         state.currentLine = 0
-        state.gameEnd = true
         return state
       })
 
@@ -98,7 +95,8 @@ class App extends React.Component {
         6: { correct: "", chars: [] }
       },
       currentLine: 1,
-      charsEntered: []
+      charsEntered: [],
+      gameEnd: false
     })
   }
 
