@@ -64,7 +64,7 @@ h1 {
   font-size: 1.25em;
 }
 
-.bad-guess {
+.info {
   display: flex;
   justify-content: center;
   font-size: 2em;

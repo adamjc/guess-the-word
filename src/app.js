@@ -1,5 +1,4 @@
-// TODO: Add tactile feedback to touch actions for keyboard (for mobile)
-// TODO: Show word if user loses
+// TODO: Sort out CSS reflow when info text appears...
 // TODO: Add help modal
 // TODO: Do CSS (colours)
 // TODO: Set word length
@@ -26,7 +25,8 @@ class App extends React.Component {
         6: { correct: "", chars: [] }
       },
       charsEntered: [],
-      currentLine: 1
+      currentLine: 1,
+      gameEnd: false
     }
 
     console.log(`word is ${this.state.word}`)
@@ -61,6 +61,7 @@ class App extends React.Component {
       console.log("congratulations")
       this.setState(state => {
         state.currentLine = 0
+        state.gameEnd = true
         return state
       })
 
@@ -68,6 +69,7 @@ class App extends React.Component {
       localStorage.setItem('wins', Number(wins) + 1)
     } else if (currentLine === 6) {
       console.log("You failed")
+      this.setState({ gameEnd: true })
 
       const losses = localStorage.getItem('losses')
       localStorage.setItem('losses', Number(losses) + 1)
@@ -146,7 +148,8 @@ class App extends React.Component {
           <Word order="5" chars={this.state.words[5].chars} correct={this.state.words[5].correct}/>
           <Word order="6" chars={this.state.words[6].chars} correct={this.state.words[6].correct}/>
         </div>
-        {this.state.badGuess ? <div className="bad-guess">Word not in word list</div> : ''}
+        {this.state.badGuess ? <div className="info">Word not in word list</div> : ''}
+        {this.state.gameEnd ? <div className="info">Word was {this.state.word}, better luck next time!</div>: ''}
         <div className="input">
           <Keyboard charsEntered={this.state.charsEntered} updateInput={this.handleKeyboardInput}></Keyboard>
           <div className="guess_new-game flex">
