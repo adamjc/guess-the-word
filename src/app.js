@@ -1,4 +1,4 @@
-// TODO: Sort out CSS reflow when info text appears...
+// TODO: Sort out CSS to grow words, use flex-grow
 // TODO: Add help modal
 // TODO: Do CSS (colours)
 // TODO: Set word length
