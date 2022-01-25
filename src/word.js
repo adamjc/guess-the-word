@@ -32,14 +32,15 @@ export class Word extends React.Component {
   }
 
   render () {
+    let letters = []
+    for (let i = 0; i < this.props.size; i++) {
+      letters.push(
+        <div key={i} className={"character " + this.state.correct[i]} data={i}>{this.props.chars[i] || ''}</div>
+      )
+    }
+
     return (
-      <div className="words">
-        <div className={"character " + this.state.correct[0]} data="0">{this.props.chars[0] || ''}</div>
-        <div className={"character " + this.state.correct[1]} data="1">{this.props.chars[1] || ''} </div>
-        <div className={"character " + this.state.correct[2]} data="2">{this.props.chars[2] || ''} </div>
-        <div className={"character " + this.state.correct[3]} data="3">{this.props.chars[3] || ''}</div>
-        <div className={"character " + this.state.correct[4]} data="4">{this.props.chars[4] || ''}</div>
-      </div>
+      <div className="words">{letters}</div>
     )
   }
 }

@@ -16,7 +16,7 @@ header {
   align-items: center;
 }
 
-header .spacer {
+header .size {
   flex-grow: 1;
 }
 

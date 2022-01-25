@@ -1,8 +1,5 @@
-// TODO: Sort out CSS to grow words, use flex-grow
-// TODO: Add help modal
-// TODO: Do CSS (colours)
 // TODO: Set word length
-// TODO: Store results in cookies
+// TODO: Do CSS (colours)
 
 const React = require('react')
 const ReactDOM = require('react-dom')
@@ -11,11 +8,13 @@ const { Word } = require('./word.js')
 import { pickWord, words }  from './words.js'
 import Keyboard from './keyboard.js'
 
+let size = [5, 6]
+
 class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      word: pickWord(),
+      word: pickWord(5),
       words: {
         1: { correct: "", chars: [] },
         2: { correct: "", chars: [] },
@@ -26,7 +25,8 @@ class App extends React.Component {
       },
       charsEntered: [],
       currentLine: 1,
-      gameEnd: false
+      gameEnd: false,
+      size: 5
     }
 
     console.log(`word is ${this.state.word}`)
@@ -43,33 +43,22 @@ class App extends React.Component {
       return
     }
 
-    if (this.state.words[currentLine].chars.length !== 5) {
+    if (this.state.words[currentLine].chars.length !== this.state.size) {
       return
     }
 
     const guess = this.state.words[currentLine].chars.join("")
-    if (!words.includes(guess.toLowerCase())) {
-      this.setState(({badGuess: true}))
+    if (!words[this.state.size].includes(guess.toLowerCase())) {
+      this.setState({ badGuess: true })
       return 
     }
 
-    this.setState(({badGuess: false}))
+    this.setState({ badGuess: false })
     
     if (this.state.word === guess) {
-      console.log("congratulations")
-      this.setState(state => {
-        state.currentLine = 0
-        return state
-      })
-
-      const wins = localStorage.getItem('wins')
-      localStorage.setItem('wins', Number(wins) + 1)
+      this.setState({ currentLine: 0 })
     } else if (currentLine === 6) {
-      console.log("You failed")
       this.setState({ gameEnd: true })
-
-      const losses = localStorage.getItem('losses')
-      localStorage.setItem('losses', Number(losses) + 1)
     }
 
     this.setState(state => {
@@ -81,8 +70,8 @@ class App extends React.Component {
     })
   }
 
-  handleReset = () => {
-    const word = pickWord()
+  reset = size => {
+    const word = pickWord(size)
     console.log(`word is ${word}`)
     this.setState({
       word,
@@ -98,6 +87,17 @@ class App extends React.Component {
       charsEntered: [],
       gameEnd: false
     })
+  }
+
+  handleReset = _ => {
+    this.reset(this.state.size)
+  }
+
+  changeSize = _ => {
+    const currentSize = this.state.size
+    const i = (size.indexOf(currentSize) + 1) % size.length
+    this.setState({size: size[i]})
+    this.reset(size[i])
   }
 
   handleKeyboardInput = char => {
@@ -127,7 +127,7 @@ class App extends React.Component {
       return
     }
     
-    const chars = this.state.words[currentLine].chars.concat(char).slice(0, 5)
+    const chars = this.state.words[currentLine].chars.concat(char).slice(0, this.state.size)
     this.setState(state => {
       state.words[currentLine].chars = chars
 
@@ -136,22 +136,20 @@ class App extends React.Component {
   }
 
   render () {
+    let words = []
+    for (let i = 1; i <= 6; i++) {
+      words.push(<Word key={i} size={this.state.size} order={i} chars={this.state.words[i].chars} correct={this.state.words[i].correct}></Word>)
+    }
+
     return (
       <div className="app-container" key={this.state.currentLine}>
         <header>
-          <div className="spacer"></div>
+          <button className="size key" onClick={this.changeSize}>{this.state.size}</button>
           <h1>Guess The Word</h1>
           <button className="new-game key" onClick={this.handleReset}>⟲</button>
         </header>
         <div className="game">
-          <div className="words-list">
-            <Word order="1" chars={this.state.words[1].chars} correct={this.state.words[1].correct}/>
-            <Word order="2" chars={this.state.words[2].chars} correct={this.state.words[2].correct}/>
-            <Word order="3" chars={this.state.words[3].chars} correct={this.state.words[3].correct}/>
-            <Word order="4" chars={this.state.words[4].chars} correct={this.state.words[4].correct}/>
-            <Word order="5" chars={this.state.words[5].chars} correct={this.state.words[5].correct}/>
-            <Word order="6" chars={this.state.words[6].chars} correct={this.state.words[6].correct}/>
-          </div>
+          <div className="words-list">{words}</div>
           {this.state.badGuess ? <div className="info">Word not in word list</div> : ''}
           {this.state.gameEnd ? <div className="info">Word was {this.state.word}, better luck next time!</div>: ''}
           <Keyboard charsEntered={this.state.charsEntered} updateInput={this.handleKeyboardInput}></Keyboard>
